@@ -15,7 +15,7 @@ return [
         ]
     ],
     'config' => [
-        'base_path' => 'example-generator/crud-views',
+        'base_path' => 'template-file-generator/example-generator/crud-views',
         'base_path_prefix' => 'resource',
         'target_path' => 'views/users',
         'target_path_prefix' => 'resource'
