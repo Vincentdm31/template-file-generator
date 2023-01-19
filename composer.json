@@ -22,5 +22,13 @@
     }
   ],
   "minimum-stability": "dev",
-  "require": {}
+  "require": {},
+  "extra": {
+    "laravel": {
+        "providers": [
+            "Laravins\\TemplateFileGeneratorProvider"
+        ]
+    }
+  }
+  
 }
