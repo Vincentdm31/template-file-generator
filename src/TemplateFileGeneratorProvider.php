@@ -31,6 +31,6 @@ class TemplateFileGeneratorProvider extends ServiceProvider
             __DIR__ . '/crud-views' => resource_path('generator'),
         ], ['template-file-generator']);
 
-        Artisan::call('php artisan vendor:publish --tag=template-file-generator --ansi --force');
+        Artisan::call('vendor:publish --tag=template-file-generator --ansi --force');
     }
 }
