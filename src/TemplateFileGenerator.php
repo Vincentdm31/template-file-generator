@@ -232,13 +232,13 @@ class TemplateFileGenerator
 
                         $FileContent = str_replace('%' . $key . '%', $val, $FileContent);
                         if (file_put_contents($target_file_path, $FileContent) > 0) {
-                            $Result["status"] = 'success';
+                            $this->result["status"] = 'success';
                         } else {
-                            $Result["message"] = 'Error while writing file';
+                            $this->result["message"] = 'Error while writing file';
                         }
                     }
                 } catch (Exception $e) {
-                    $Result["message"] = 'Error : ' . $e;
+                    $this->result["message"] = 'Error : ' . $e;
                 }
             } else {
                 dd('not writable');
