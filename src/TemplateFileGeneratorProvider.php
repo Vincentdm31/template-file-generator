@@ -25,5 +25,9 @@ class TemplateFileGeneratorProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/example-generator.php' => config_path('example-generator.php'),
         ], 'template-file-generator');
+
+        $this->publishes([
+            __DIR__ . '/crud-views' => resource_path('generator'),
+        ], 'template-file-generator');
     }
 }

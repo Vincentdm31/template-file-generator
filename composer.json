@@ -1,19 +1,26 @@
 {
-    "name": "laravins/template-file-generator",
-    "description": "File generator from template with data customization.",
-    "type": "project",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Laravins\\TemplateFileGenerator\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Vincentdm31",
-            "email": "vincent.dimarco1@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+  "name": "laravins/template-file-generator",
+  "description": "File generator from template with data customization.",
+  "type": "project",
+  "license": "MIT",
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi",
+      "@php artisan vendor:publish --tag=template-file-generator --force"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Laravins\\TemplateFileGenerator\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Vincentdm31",
+      "email": "vincent.dimarco1@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {}
 }
