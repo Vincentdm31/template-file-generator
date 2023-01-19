@@ -13,13 +13,6 @@ class TemplateFileGeneratorProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->publishes([
-            __DIR__ . '/config/example-generator.php' => config_path('example-generator.php'),
-        ], ['template-file-generator']);
-
-        $this->publishes([
-            __DIR__ . '/crud-views' => resource_path('generator'),
-        ], ['template-file-generator']);
     }
 
     /**
@@ -29,5 +22,12 @@ class TemplateFileGeneratorProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__ . '/config/example-generator.php' => config_path('example-generator.php'),
+        ], ['template-file-generator']);
+
+        $this->publishes([
+            __DIR__ . '/crud-views' => resource_path('generator'),
+        ], ['template-file-generator']);
     }
 }
