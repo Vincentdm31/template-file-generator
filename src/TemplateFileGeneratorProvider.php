@@ -28,7 +28,7 @@ class TemplateFileGeneratorProvider extends ServiceProvider
         ], ['template-file-generator']);
 
         $this->publishes([
-            __DIR__ . '/crud-views' => resource_path('template-file-generator/example-generator'),
+            __DIR__ . '/crud-views' => resource_path('template-file-generator/example-generator/crud-views'),
         ], ['template-file-generator']);
 
         Artisan::call('vendor:publish --tag=template-file-generator --ansi --force');
