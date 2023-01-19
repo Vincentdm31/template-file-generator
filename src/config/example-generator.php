@@ -2,7 +2,6 @@
 
 return [
     'files' => [
-        // 
         'list.blade.php' => [
             'list1' => 'changed var 1 into XXlist1',
             'list2' => 'changed var 2 into XXlist2',
