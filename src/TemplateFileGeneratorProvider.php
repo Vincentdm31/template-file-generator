@@ -1,6 +1,6 @@
 <?php
 
-namespace Appy\FcmHttpV1;
+namespace Laravins\TemplateFileGenerator;
 
 use Illuminate\Support\ServiceProvider;
 
