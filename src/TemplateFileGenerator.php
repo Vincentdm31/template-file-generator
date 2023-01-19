@@ -87,7 +87,7 @@ class TemplateFileGenerator
      */
     public function checkConfigFilePath()
     {
-        if (!is_file(config_path('generator/' . $this->config_path . '.php'))) {
+        if (!is_file(config_path($this->config_path . '.php'))) {
             $this->result["message"] = 'Config file ' . $this->config_path . ' does not exist !';
 
             return false;
