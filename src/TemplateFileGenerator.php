@@ -93,7 +93,7 @@ class TemplateFileGenerator
             return false;
         }
 
-        $this->config = config($this->config_path);
+        $this->config = config(str_replace("/", ".", $this->config_path));
 
         return true;
     }
