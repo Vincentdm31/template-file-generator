@@ -24,11 +24,11 @@ class TemplateFileGeneratorProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/example-generator.php' => config_path('example-generator.php'),
+            __DIR__ . '/config/example-generator.php' => config_path('template-file-generator/example-generator.php'),
         ], ['template-file-generator']);
 
         $this->publishes([
-            __DIR__ . '/crud-views' => resource_path('example-generator'),
+            __DIR__ . '/crud-views' => resource_path('template-file-generator/example-generator'),
         ], ['template-file-generator']);
 
         Artisan::call('vendor:publish --tag=template-file-generator --ansi --force');
