@@ -102,3 +102,24 @@ This will be converted into
 <p>Made with ❤️</p>
 <p>For lazy developers</p>
 ```
+
+<br/>
+
+***
+<br/>
+
+**Usage**
+
+```php
+use Laravins\TemplateFileGenerator\TemplateFileGenerator;
+
+// The path of my config file is actually 'config/template-file-generator/example-generator'
+$generator = new TemplateFileGenerator('template-file-generator/example-generator');
+
+// Generate files
+$result = $generator->replaceContent();
+
+// Get result
+dd($result) // ["status' => "success", "message" => ""]
+
+// If an error occurs, please refer to the "message" error.
