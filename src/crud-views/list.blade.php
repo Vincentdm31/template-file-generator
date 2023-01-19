@@ -1,4 +1,4 @@
-<p>Edit VIEW</p>
+<p>List VIEW</p>
 
 <p>%thanks%</p>
 <p>%stars%</p>
