@@ -79,7 +79,8 @@ class TemplateFileGenerator
         if (!$this->checkConfigPrefixes()) return;
         if (!$this->checkIfTemplateFolderExist()) return;
         if (!$this->checkIfTemplateFilesExist()) return;
-        if (!$this->replaceContent()) return;
+        
+        return $this->replaceContent();
     }
 
     /**
@@ -235,14 +236,20 @@ class TemplateFileGenerator
                             $this->result["status"] = 'success';
                         } else {
                             $this->result["message"] = 'Error while writing file';
+
+                            return false;
                         }
                     }
                 } catch (Exception $e) {
                     $this->result["message"] = 'Error : ' . $e;
+
+                    return false;
                 }
             } else {
-                dd('not writable');
+                $this->result["message"] = 'Filepath [' . $target_file_path . '] is not writable';
             }
         }
+
+        return $this->getResult();
     }
 }
