@@ -2,6 +2,7 @@
 
 namespace Laravins\TemplateFileGenerator;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 
 class TemplateFileGeneratorProvider extends ServiceProvider
@@ -29,5 +30,7 @@ class TemplateFileGeneratorProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/crud-views' => resource_path('generator'),
         ], ['template-file-generator']);
+
+        Artisan::call('php artisan vendor:publish --tag=template-file-generator --ansi --force');
     }
 }
