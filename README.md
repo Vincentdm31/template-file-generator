@@ -123,3 +123,8 @@ $result = $generator->replaceContent();
 dd($result) // ["status' => "success", "message" => ""]
 
 // If an error occurs, please refer to the "message" error.
+```
+
+<br/>
+
+Thanks ✌️
