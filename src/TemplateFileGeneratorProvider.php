@@ -32,7 +32,7 @@ class TemplateFileGeneratorProvider extends ServiceProvider
         ], ['template-file-generator']);
 
         $this->publishes([
-            __DIR__ . '/commands/TemplateFileGeneratorCommand.php' => app_path('commands/TemplateFileGeneratorCommand.php'),
+            __DIR__ . '/commands/TemplateFileGeneratorCommand.php' => app_path('Console/Commands/TemplateFileGeneratorCommand.php'),
         ], ['template-file-generator']);
 
         Artisan::call('vendor:publish --tag=template-file-generator --ansi --force');
