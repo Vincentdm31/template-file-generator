@@ -125,6 +125,11 @@ dd($result) // ["status' => "success", "message" => ""]
 // If an error occurs, please refer to the "message" error.
 ```
 
+Artisan command
+```php 
+php artisan laravins-tfg:generate template-file-generator/example-generator
+```
+
 <br/>
 
 Thanks ✌️

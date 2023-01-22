@@ -74,11 +74,19 @@ class TemplateFileGenerator
 
     public function checkConfig()
     {
-        if (!$this->checkConfigFilePath()) return;
-        if (!$this->checkConfigRequiredKeys()) return;
-        if (!$this->checkConfigPrefixes()) return;
-        if (!$this->checkIfTemplateFolderExist()) return;
-        if (!$this->checkIfTemplateFilesExist()) return;
+        if (
+            !$this->checkConfigFilePath()
+            || !$this->checkConfigRequiredKeys()
+            || !$this->checkConfigPrefixes()
+            || !$this->checkIfTemplateFolderExist()
+            || !$this->checkIfTemplateFilesExist()
+        ) return $this->getResult();
+
+
+        $this->result['status'] = 'config__check_success';
+        $this->result['message'] = 'Configuration works successfully';
+
+        return $this->getResult();
     }
 
     /**
@@ -88,6 +96,7 @@ class TemplateFileGenerator
     {
         if (!is_file(config_path($this->config_path . '.php'))) {
             $this->result["message"] = 'Config file ' . $this->config_path . ' does not exist !';
+            $this->result["status"] = 'error';
 
             return false;
         }
@@ -103,12 +112,14 @@ class TemplateFileGenerator
 
         foreach ($needed_keys as $key => $value) {
             if (!isset($this->config[$value])) {
+                $this->result["status"] = 'error';
                 $this->result["message"] = 'Required array key [' . $value . '] in config: ' . $this->config_path . ' should be set.';
 
                 return false;
             }
 
             if (!is_array($this->config[$value])) {
+                $this->result["status"] = 'error';
                 $this->result["message"] = 'Array value of key [' . $value . '] in config: ' . $this->config_path . ' needs to be an array.';
 
                 return false;
@@ -117,6 +128,7 @@ class TemplateFileGenerator
             if ($value === 'files') {
                 foreach ($this->config[$value] as $k => $v)
                     if (!is_array($this->config[$value][$k])) {
+                        $this->result["status"] = 'error';
                         $this->result["message"] = 'Array value of key [' . $value . '.' . $k . '] in config: ' . $this->config_path . ' needs to be an array.';
 
                         return false;
@@ -128,6 +140,7 @@ class TemplateFileGenerator
 
                 foreach ($needed_paths as $k => $v) {
                     if (!isset($this->config[$value][$v . '_path'])) {
+                        $this->result["status"] = 'error';
                         $this->result["message"] = '[config.' . $v . '_path] in config: ' . $this->config_path . ' needs to be set.';
 
                         return false;
@@ -159,6 +172,7 @@ class TemplateFileGenerator
                 if (strlen($this->config['config'][$v . '_path_prefix'])) {
                     if (!in_array($this->config['config'][$v . '_path_prefix'], array_values($this->prefixes))) {
                         $this->result["message"] = $v . '_path_prefix [' . $this->config['config'][$v . '_path_prefix'] . '] in config: ' . $this->config_path . ' is not a valid prefix.';
+                        $this->result["status"] = 'error';
 
                         return false;
                     }
@@ -168,6 +182,7 @@ class TemplateFileGenerator
                 }
             } else {
                 $this->result["message"] = 'config.' . $v . '_path_prefix in config: ' . $this->config_path . ' needs to be set (may be empty).';
+                $this->result["status"] = 'error';
 
                 return false;
             }
@@ -180,6 +195,7 @@ class TemplateFileGenerator
     {
         if (!is_dir(strlen($this->base_path_prefix) ? $this->base_path_prefix . '/' . $this->base_path : $this->base_path)) {
             $this->result["message"] = 'Template folder [' . $this->config['config']['base_path'] . '] located at [' . $this->base_path_prefix . '/' . $this->config['config']['base_path'] . '] in config: ' . $this->config_path . ' does not exist.';
+            $this->result["status"] = 'error';
 
             return false;
         }
@@ -191,7 +207,8 @@ class TemplateFileGenerator
     {
         foreach ($this->config['files'] as $k => $v) {
             if (!is_file(strlen($this->base_path_prefix) ? $this->base_path_prefix . '/' . $this->base_path . '/' . $k : $this->base_path . '/' . $k)) {
-                $this->result["message"] = 'Template file [' . $k . '] located at [' . (strlen($this->base_path_prefix) ? $this->base_path_prefix . '/' . $this->base_path . '/' . $k : $this->base_path . '/' . $k) . '] doest not exist.';
+                $this->result["message"] = 'Template file [' . $k . '] located at [' . (strlen($this->base_path_prefix) ? $this->base_path_prefix . '/' . $this->base_path  . $k : $this->base_path . '/' . $k) . '] doest not exist.';
+                $this->result["status"] = 'error';
 
                 return false;
             }
@@ -232,8 +249,10 @@ class TemplateFileGenerator
                         $FileContent = str_replace('%' . $key . '%', $val, $FileContent);
                         if (file_put_contents($target_file_path, $FileContent) > 0) {
                             $this->result["status"] = 'success';
+                            $this->result["message"] = 'files generated successfully';
                         } else {
                             $this->result["message"] = 'Error while writing file';
+                            $this->result["status"] = 'error';
 
                             return $this->getResult();
                         }
@@ -245,6 +264,7 @@ class TemplateFileGenerator
                 }
             } else {
                 $this->result["message"] = 'Filepath [' . $target_file_path . '] is not writable';
+                $this->result["status"] = 'error';
 
                 return $this->getResult();
             }
